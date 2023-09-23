@@ -423,11 +423,11 @@ function Product() {
         <Stack
           sx={{
             width: "100%",
-            padding: "20px 10px",
+            padding: "20px 10px", 
           }}
         >
           <br />
-          <p className="h2">Product Description..</p>
+          <p className="h2">Product Description</p>
           {!(item !== undefined ? item.error : true) ? (
             <ul>
               {item.long_description.map((line) => {
@@ -492,7 +492,7 @@ function Product() {
             </>
           )}
           <br />
-          <p className="h2">Ratings And Reviews..</p>
+          <p className="h2">Ratings And Reviews</p>
           {!(item !== undefined ? item.error : true) && (
             <Stack
               display="flex"

@@ -62,6 +62,7 @@ function Cart() {
             const res = await axios.get("/cart/cart_product");
             if (res.data.error) {
               alert(res.data.message);
+              cart_product_ref.current = [];
             } else {
               console.log(res.data);
               cart_product_ref.current = res.data.cart_product;
@@ -657,7 +658,8 @@ function Cart() {
   async function ReadyForPayment() {
     const res = await axios.get("/cart/place_order");
     console.log(res.data);
-    if (res.data.error) alert(`Do Refresh, Error In Payment Gateway = ${res.data.message}`);
+    if (res.data.error)
+      alert(`Do Refresh, Error In Payment Gateway = ${res.data.message}`);
     else window.location = res.data.url;
   }
 

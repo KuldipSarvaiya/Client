@@ -1,7 +1,6 @@
 import React from "react";
 import { useCookie } from "react-use";
-import axios from "axios";
-
+// import axios from "axios";
 export const Context = React.createContext();
 
 function ContextProvider(props) {
