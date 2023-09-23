@@ -19,6 +19,12 @@ function SD_PendingOrder() {
   const { Data, Dispatch } = React.useContext(Context);
 
   React.useEffect(() => {
+    console.log(
+      Data.Changed.PendingOrders,
+      Data.Changed.HeaderJWT_set,
+      axios.defaults.headers.common.Authorization !==
+        "E-Cart this_is_JWT_loaded_by_axios"
+    );
     if (
       Data.Changed.PendingOrders &&
       Data.Changed.HeaderJWT_set &&
@@ -31,7 +37,7 @@ function SD_PendingOrder() {
         Dispatch({
           type: "set_pending_orders",
           pending_orders: res.data.pending_orders,
-          count: res.data.pending_orders.length
+          count: res.data.pending_orders.length,
         });
         if (!res.data.error) setData(res.data.pending_orders);
         else alert(res.data.message);
