@@ -31,6 +31,8 @@ import Footer from "./Footer";
 import { useCookie } from "react-use";
 import { useNavigate } from "react-router-dom";
 // import { DecodeData } from "./SecureData";
+import dotenv from "dotenv";
+dotenv.config();
 
 function Account() {
   //for panel expand
@@ -56,7 +58,7 @@ function Account() {
         if (
           Data.Changed.Account &&
           axios.defaults.headers.common.Authorization !==
-            "E-Cart this_is_JWT_loaded_by_axios"
+            process.env.HEADER_COMMON_AUTH
         ) {
           const res = await axios.get("/account");
           console.log("account Responce  = ", res);
@@ -395,8 +397,7 @@ function Account() {
       </Paper>
     );
   }
-  // if (Datas !== undefined)
-  //   if (Datas.User !== undefined)
+
   return (
     <>
       <Paper

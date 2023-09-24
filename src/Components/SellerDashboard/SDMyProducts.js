@@ -5,6 +5,8 @@ import { Delete, Edit } from "@mui/icons-material";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../../Context";
+import dotenv from "dotenv";
+dotenv.config();
 
 function SD_MyProducts() {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ function SD_MyProducts() {
       Data.Changed.MyProducts &&
       Data.Changed.HeaderJWT_set &&
       axios.defaults.headers.common.Authorization !==
-        "E-Cart this_is_JWT_loaded_by_axios"
+      process.env.HEADER_COMMON_AUTH
     )
       (async function () {
         const res = await axios.get("/seller_dashboard/my_product");
@@ -32,7 +34,7 @@ function SD_MyProducts() {
         } else alert(res.data.message);
       })();
     else setData(Data.MyProducts);
-  }, [Data.Changed.MyProducts, Data.Changed.HeaderJWT_set]);
+  }, [Data.Changed.MyProducts, Data.Changed.HeaderJWT_set,axios.defaults.headers.common.Authorization]);
 
   function AllProducts({
     _OID,

@@ -29,6 +29,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCookie } from "react-use";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
 function Footer() {
   const navigate = useNavigate();
@@ -231,7 +233,11 @@ function Footer() {
               +91 9724924494
             </span>
             <span className="footer-content">
-              <IconButton href="mailto:ecart.shop.business@gmail.com" color="error" size="small">
+              <IconButton
+                href="mailto:ecart.shop.business@gmail.com"
+                color="error"
+                size="small"
+              >
                 <Email />
               </IconButton>{" "}
               ecart.shop.business@gmail.com
@@ -366,7 +372,7 @@ function Footer() {
               <IconButton
                 color="primary"
                 size="small"
-                href="https://kuldipsarvaiya.github.io/KDs-Portfolio/"
+                href={process.env.PORTFOLIO_URL}
               >
                 <Link />
               </IconButton>{" "}
@@ -376,7 +382,7 @@ function Footer() {
               <IconButton
                 color="secondary"
                 size="small"
-                href="https://www.instagram.com/kd_sarvaiya_/"
+                href={process.env.INSTAGRAM_URL}
               >
                 <Instagram />
               </IconButton>{" "}
@@ -386,7 +392,7 @@ function Footer() {
               <IconButton
                 color="default"
                 size="small"
-                href="https://github.com/KuldipSarvaiya"
+                href={process.env.GITHUB_URL}
               >
                 <GitHub />
               </IconButton>{" "}
@@ -396,7 +402,7 @@ function Footer() {
               <IconButton
                 color="primary"
                 size="small"
-                href="https://www.linkedin.com/in/kuldip-sarvaiya-2592a425b/"
+                href={process.env.LINKEDIN_URL}
               >
                 <LinkedIn />
               </IconButton>{" "}
@@ -406,7 +412,7 @@ function Footer() {
               <IconButton
                 color="info"
                 size="small"
-                href="https://www.facebook.com/kuldip.sarvaiya.376?mibextid=ZbWKwL"
+                href={process.env.FACEBOOK_URL}
               >
                 <Facebook />
               </IconButton>{" "}

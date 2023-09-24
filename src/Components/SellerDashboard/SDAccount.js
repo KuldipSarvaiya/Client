@@ -17,6 +17,8 @@ import { ChangeCircle, ExpandMore, Save } from "@mui/icons-material";
 import axios from "axios";
 import { useCookie } from "react-use";
 import { useNavigate } from "react-router-dom";
+import dotenv from "dotenv";
+dotenv.config();
 
 function SD_Account() {
   const [expanded, setExpanded] = React.useState(false);
@@ -52,7 +54,7 @@ function SD_Account() {
       Data.Changed.Account &&
       Data.Changed.HeaderJWT_set &&
       axios.defaults.headers.common.Authorization !==
-        "E-Cart this_is_JWT_loaded_by_axios"
+        process.env.HEADER_COMMON_AUTH
     ) {
       (async function () {
         const res = await axios.get(`/seller_dashboard/account`);
@@ -64,7 +66,11 @@ function SD_Account() {
         } else alert(res.data.message);
       })();
     } else setUser(Data.Account);
-  }, [Data.Changed.Account, Data.Changed.HeaderJWT_set]);
+  }, [
+    Data.Changed.Account,
+    Data.Changed.HeaderJWT_set,
+    axios.defaults.headers.common.Authorization,
+  ]);
 
   function handleChangeUser(event) {
     const name = event.target.name;

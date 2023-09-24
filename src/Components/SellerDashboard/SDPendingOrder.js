@@ -13,23 +13,19 @@ import axios from "axios";
 import React from "react";
 import { nanoid } from "nanoid";
 import { Context } from "../../Context";
+import dotenv from "dotenv";
+dotenv.config();
 
 function SD_PendingOrder() {
   const [data, setData] = React.useState(undefined);
   const { Data, Dispatch } = React.useContext(Context);
 
   React.useEffect(() => {
-    console.log(
-      Data.Changed.PendingOrders,
-      Data.Changed.HeaderJWT_set,
-      axios.defaults.headers.common.Authorization !==
-        "E-Cart this_is_JWT_loaded_by_axios"
-    );
     if (
       Data.Changed.PendingOrders &&
       Data.Changed.HeaderJWT_set &&
       axios.defaults.headers.common.Authorization !==
-        "E-Cart this_is_JWT_loaded_by_axios"
+        process.env.HEADER_COMMON_AUTH
     ) {
       (async function () {
         const res = await axios.get(`/seller_dashboard/pending_order`);

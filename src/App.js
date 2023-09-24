@@ -25,10 +25,11 @@ import { DecodeData } from "./Components/SecureData";
 import NoPageFound from "./NoPageFound";
 import PaymentSuccess from "./Components/cart/PaymentSuccess";
 import PaymentFailed from "./Components/cart/PaymentFailed";
+import dotenv from "dotenv";
+dotenv.config();
 
-axios.defaults.baseURL = "http://localhost:8080";
-axios.defaults.headers.common.Authorization =
-  "E-Cart this_is_JWT_loaded_by_axios";
+axios.defaults.baseURL = process.env.SERVER_BASE_URL;
+axios.defaults.headers.common.Authorization = process.env.HEADER_COMMON_AUTH;
 
 function App() {
   const { Data, Dispatch } = React.useContext(Context);
@@ -43,7 +44,7 @@ function App() {
         // console.log("logsInfo app = ", logsInfo, logs);
         if (logsInfo !== undefined) {
           axios.defaults.headers.common.Authorization = `E-Cart ${logsInfo.jwt}`;
-          console.log("Setting jwt")
+          console.log("Setting jwt");
           Dispatch({ type: "Header_Set", role: logsInfo.role });
           if (
             logsInfo.role === "seller" &&
