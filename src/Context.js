@@ -163,7 +163,7 @@ function ContextProvider(props) {
           ...state,
           Changed: {
             ...state.Changed,
-            [action.it]: action.to,
+            [action.it]: true,
           },
         };
       // change in Changed Value when site reloads
@@ -171,6 +171,7 @@ function ContextProvider(props) {
         return {
           ...state,
           Changed: {
+            ...state.Changed,
             Home: true,
             Account: true,
             Cart: true,
@@ -178,7 +179,7 @@ function ContextProvider(props) {
             PendingOrders: true,
             MyProducts: true,
             LoggedOut: true,
-            HeaderJWT_set: false,
+            // HeaderJWT_set: false,
           },
         };
       case "Header_Set":

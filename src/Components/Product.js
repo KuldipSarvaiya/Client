@@ -133,6 +133,8 @@ function Product() {
           flexWrap={"wrap"}
           justifyContent={"space-evenly"}
           alignContent={"center"}
+          alignItems={"center"}
+          paddingTop={"20px"}
         >
           {/* images stack */}
           <Stack
@@ -144,7 +146,7 @@ function Product() {
                 lg: "45%",
                 xl: "40%",
               },
-              minWidth: {
+              maxWidth: {
                 xs: "99%",
                 sm: "99%",
                 md: "50%",
@@ -185,7 +187,7 @@ function Product() {
                 />
               ) : (
                 <img
-                  loading="lazy"
+                  loading="eager"
                   className="main-image-div"
                   src={`${item.images[img]}`}
                   alt="Product Images is Broken Due to Network Problem"
@@ -222,7 +224,9 @@ function Product() {
             >
               <p className="h2">{item.name}</p>
               <p className="h3">{item.short_description}</p>
-              <p className="h3">Brand Name</p>
+              <p className="h3">
+                <sub>from: </sub>Brand Name
+              </p>
               {item.discount !== 0 && (
                 <p className="h4">Offer : {item.discount}% instant Discount</p>
               )}
@@ -250,7 +254,7 @@ function Product() {
                             goToColor(colors);
                           }}
                         >
-                          <Circle />
+                          <Circle /> 
                         </IconButton>
                       );
                     })}
@@ -423,7 +427,7 @@ function Product() {
         <Stack
           sx={{
             width: "100%",
-            padding: "20px 10px", 
+            padding: "20px 10px",
           }}
         >
           <br />
@@ -543,7 +547,7 @@ function Product() {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
-                gap: "10px",
+                gap: "5px", 
               }}
             >
               {similarItem.Products.map((item, index) => (

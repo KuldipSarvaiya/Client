@@ -33,7 +33,7 @@ function SD_PendingOrder() {
     ) {
       (async function () {
         const res = await axios.get(`/seller_dashboard/pending_order`);
-        console.log(res);
+        console.log("pending orders = ", res);
         Dispatch({
           type: "set_pending_orders",
           pending_orders: res.data.pending_orders,
@@ -43,7 +43,11 @@ function SD_PendingOrder() {
         else alert(res.data.message);
       })();
     } else setData(Data.PendingOrders);
-  }, [Data.Changed.PendingOrders, Data.Changed.HeaderJWT_set]);
+  }, [
+    Data.Changed.PendingOrders,
+    Data.Changed.HeaderJWT_set,
+    axios.defaults.headers.common.Authorization,
+  ]);
 
   function Orders({
     IMAGE,
@@ -62,8 +66,6 @@ function SD_PendingOrder() {
   }) {
     const [delivery_status, setDelivery_status] =
       React.useState(DELIVERY_STATUS);
-
-    console.log(delivery_status);
 
     return (
       <Paper
