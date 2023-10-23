@@ -24,7 +24,7 @@ function ContextProvider(props) {
     PendingOrdersCount: 0,
     CompletedOrders: false,
     PendingOrders: false,
-    MyProduts: false,
+    MyProducts: false,
     Changed: {
       Home: true,
       Account: true,
@@ -161,6 +161,7 @@ function ContextProvider(props) {
       case "Changed":
         return {
           ...state,
+          [action.it]: false,
           Changed: {
             ...state.Changed,
             [action.it]: true,

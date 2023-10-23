@@ -1,11 +1,9 @@
 import axios from "axios";
-import React from "react";
-import dotenv from "dotenv";
-dotenv.config();
+import React from "react"; 
 
 function SD_Sells() {
   React.useEffect(() => {
-    if(axios.defaults.headers.common.Authorization !== process.env.HEADER_COMMON_AUTH)
+    if(axios.defaults.headers.common.Authorization !== "E-Cart this_is_JWT_loaded_by_axios")
       (async function () {
         const res = await axios.get(`/seller_dashboard/sells`);
         console.log(res);

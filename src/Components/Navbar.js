@@ -149,7 +149,11 @@ function Navbar() {
                   </InputAdornment>
                 ),
               }}
-              sx={{ maxWidth: window.innerWidth / 1.7 }}
+              sx={{
+                maxWidth: window.innerWidth / 1.7,
+                borderRadius: "8px",
+                backgroundColor: "whitesmoke", 
+              }}
               value={searchTag}
               onChange={(e) => setSearchTag(e.target.value)}
               onKeyUp={(e) => {
@@ -200,7 +204,11 @@ function Navbar() {
               label="CART"
               onClick={() => navigate("/cart")}
               icon={
-                <Badge badgeContent={Data.CartItemsCount} showZero color="primary">
+                <Badge
+                  badgeContent={Data.CartItemsCount}
+                  showZero
+                  color="primary"
+                >
                   <ShoppingCart />
                 </Badge>
               }

@@ -28,9 +28,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useCookie } from "react-use";
-import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+import axios from "axios"; 
 
 function Footer() {
   const navigate = useNavigate();
@@ -372,7 +370,7 @@ function Footer() {
               <IconButton
                 color="primary"
                 size="small"
-                href={process.env.PORTFOLIO_URL}
+                href={"https://kuldipsarvaiya.github.io/KDs-Portfolio/"}
               >
                 <Link />
               </IconButton>{" "}
@@ -382,7 +380,7 @@ function Footer() {
               <IconButton
                 color="secondary"
                 size="small"
-                href={process.env.INSTAGRAM_URL}
+                href={"https://www.instagram.com/kd_sarvaiya_/"}
               >
                 <Instagram />
               </IconButton>{" "}
@@ -392,7 +390,7 @@ function Footer() {
               <IconButton
                 color="default"
                 size="small"
-                href={process.env.GITHUB_URL}
+                href={"https://github.com/KuldipSarvaiya"}
               >
                 <GitHub />
               </IconButton>{" "}
@@ -402,17 +400,17 @@ function Footer() {
               <IconButton
                 color="primary"
                 size="small"
-                href={process.env.LINKEDIN_URL}
+                href={"https://www.linkedin.com/in/kuldip-sarvaiya-2592a425b/"}
               >
                 <LinkedIn />
               </IconButton>{" "}
-              linedIn
+              linkedIn
             </span>
             <span className="footer-content">
               <IconButton
                 color="info"
                 size="small"
-                href={process.env.FACEBOOK_URL}
+                href={"https://www.facebook.com/kuldip.sarvaiya.376?mibextid=ZbWKwL"}
               >
                 <Facebook />
               </IconButton>{" "}

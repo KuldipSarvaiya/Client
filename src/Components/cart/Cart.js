@@ -37,9 +37,7 @@ import StepConnector, {
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 import { useCookie } from "react-use";
-import { Context } from "../../Context";
-import dotenv from "dotenv";
-dotenv.config();
+import { Context } from "../../Context"; 
 
 function Cart() {
   // const { Data } = React.useContext(Context);
@@ -59,7 +57,7 @@ function Cart() {
           if (
             Data.Changed.Cart &&
             axios.defaults.headers.common.Authorization !==
-              process.env.HEADER_COMMON_AUTH
+            "E-Cart this_is_JWT_loaded_by_axios"
           ) {
             const res = await axios.get("/cart/cart_product");
             if (res.data.error) {

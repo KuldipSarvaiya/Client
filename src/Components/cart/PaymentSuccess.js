@@ -1,15 +1,15 @@
 import { Forward } from "@mui/icons-material";
-import { Alert, AlertTitle, Button } from "@mui/material";
+import { Alert, AlertTitle, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
-import React from "react";
+import React, { memo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Context } from "../../Context";
+// import { Context } from "../../Context";
 
 function PaymentSuccess() {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [msg, setMsg] = React.useState(undefined);
-  const { Dispach } = React.useContext(Context);
+  // const { Dispatch } = React.useContext(Context);
 
   React.useEffect(() => {
     console.log("This Is Payment Successful Page Directed By Stripe");
@@ -17,11 +17,13 @@ function PaymentSuccess() {
       const res = await axios.put("/cart/payment_success", {
         orders: search.substring(8).split("&").slice(0, -1),
       });
+      console.log("Payment sucessfull hurrray , i love dhruvika umahh");
+      navigate("/account/panel2", { replace: true });
       setMsg(res.data);
-      Dispach({ type: "Changed", it: "Account" });
-      Dispach({ type: "Changed", it: "Cart" });
+      // Dispatch({ type: "Changed", it: "Account" });
+      // Dispatch({ type: "Changed", it: "Cart" });
     })();
-  });
+  }, []);
 
   return (
     <div className="payment-result-main-div">
@@ -33,6 +35,7 @@ function PaymentSuccess() {
           Thank You.
         </p>
         {msg !== undefined && <p>{msg}*</p>}
+        <CircularProgress size={"small"} color="success" />
         <Button
           variant="contained"
           onClick={() => {
@@ -46,4 +49,4 @@ function PaymentSuccess() {
   );
 }
 
-export default PaymentSuccess;
+export default memo(PaymentSuccess);

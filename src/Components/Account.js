@@ -30,9 +30,7 @@ import { useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { useCookie } from "react-use";
 import { useNavigate } from "react-router-dom";
-// import { DecodeData } from "./SecureData";
-import dotenv from "dotenv";
-dotenv.config();
+// import { DecodeData } from "./SecureData"; 
 
 function Account() {
   //for panel expand
@@ -58,7 +56,7 @@ function Account() {
         if (
           Data.Changed.Account &&
           axios.defaults.headers.common.Authorization !==
-            process.env.HEADER_COMMON_AUTH
+          "E-Cart this_is_JWT_loaded_by_axios"
         ) {
           const res = await axios.get("/account");
           console.log("account Responce  = ", res);
@@ -188,7 +186,7 @@ function Account() {
     createdAt,
     updatedAt,
     order_completed,
-    // ratinged,
+    ratinged,
   }) {
     const [rev, setRev] = React.useState(false);
     const review = React.useRef();
@@ -293,8 +291,10 @@ function Account() {
                 // if (verify === true) {
                 const res = await axios.delete(`/account?order_id=${_ID}`);
                 alert(res.data.message);
-                if (!res.data.error)
+                if (!res.data.error){
                   Dispatch({ type: "Changed", it: "Account", to: true });
+                  window.location.reload();
+                }
                 // }
               }}
             >
@@ -324,12 +324,12 @@ function Account() {
               {DELIVERY_STATUS}
             </b>
           </span>
-          {order_completed && rating === null && (
+          {order_completed && ratinged === null && (
             <span>
               Give Rating :
               <sub>
                 <Rating
-                  precision={1}
+                  precision={0.5}
                   defaultValue={0}
                   size="medium"
                   readOnly={rev}
@@ -361,10 +361,12 @@ function Account() {
                           value: rating.current,
                           review: review.current,
                           product: P_ID,
+                          order_id: _ID,
                         });
                         alert(res.data.message);
                         if (!res.data.error) {
-                          setRev(true);
+                          // setRev(true);
+                          window.location.reload()
                         }
                       } else alert("Give Proper Ratings And Review");
                       console.log("review submit");

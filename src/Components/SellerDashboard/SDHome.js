@@ -38,7 +38,7 @@ function SD_Home() {
         )}
 
         <h4>
-          <ArrowForward /> You Have Total {Data.MyProduts.length} Products Live For Sell.. You Can
+          <ArrowForward /> You Have Total {Data.MyProduts && Data.MyProduts.length} Products Live For Sell.. You Can
           Add More Products By Clicking{" "}
           <NavLink to="/seller_dashboard/add_product">Here</NavLink>
         </h4>

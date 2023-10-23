@@ -50,7 +50,7 @@ function ProductCard(props) {
       : {
           xs: "167px",
           sm: "250px",
-          md: "180px",
+          md: "220px",
           lg: "250px",
           xl: "230px",
         };
@@ -106,6 +106,13 @@ function ProductCard(props) {
             height: "inherit",
             margin: "auto",
             maxWidth: MaxWidth,
+            minHeight:{
+              xs: "90px",
+              sm: "160px",
+              md: "110px",
+              lg: "160px",
+              xl: "140px",
+            }
           }}
           onClick={NavTo}
         />

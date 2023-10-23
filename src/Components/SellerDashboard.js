@@ -96,13 +96,13 @@ function SellerDashboard() {
             >
               <Button variant="outlined">completed orders</Button>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               className={"drawer-navlink"}
               to={"/seller_dashboard/sells "}
               replace={true}
             >
               <Button variant="outlined">sells</Button>
-            </NavLink>
+            </NavLink> */}
             <NavLink
               className={"drawer-navlink"}
               to={"/seller_dashboard/account "}

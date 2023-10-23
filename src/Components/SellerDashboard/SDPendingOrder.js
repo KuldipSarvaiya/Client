@@ -13,8 +13,6 @@ import axios from "axios";
 import React from "react";
 import { nanoid } from "nanoid";
 import { Context } from "../../Context";
-import dotenv from "dotenv";
-dotenv.config();
 
 function SD_PendingOrder() {
   const [data, setData] = React.useState(undefined);
@@ -22,10 +20,10 @@ function SD_PendingOrder() {
 
   React.useEffect(() => {
     if (
-      Data.Changed.PendingOrders &&
+      // Data.Changed.PendingOrders &&
       Data.Changed.HeaderJWT_set &&
       axios.defaults.headers.common.Authorization !==
-        process.env.HEADER_COMMON_AUTH
+        "E-Cart this_is_JWT_loaded_by_axios"
     ) {
       (async function () {
         const res = await axios.get(`/seller_dashboard/pending_order`);
@@ -38,14 +36,23 @@ function SD_PendingOrder() {
         if (!res.data.error) setData(res.data.pending_orders);
         else alert(res.data.message);
       })();
-    } else setData(Data.PendingOrders);
+    } 
+    // else setData(Data.PendingOrders);
+
+    // return () =>
+    //   Dispatch({
+    //     type: "Changed",
+    //     it: "PendingOrders",
+    //     to: true,
+    //   });
   }, [
-    Data.Changed.PendingOrders,
+    // Data.Changed.PendingOrders,
     Data.Changed.HeaderJWT_set,
     axios.defaults.headers.common.Authorization,
   ]);
 
   function Orders({
+    _id,
     IMAGE,
     PRODUCT_NAME,
     SHORT_DESCRIPTION,
@@ -62,6 +69,18 @@ function SD_PendingOrder() {
   }) {
     const [delivery_status, setDelivery_status] =
       React.useState(DELIVERY_STATUS);
+
+    async function Order_calcel_confirm(value) {
+      const res = await axios.put(`/seller_dashboard/pending_order`, {
+        value: value,
+        _id: _id,
+      });
+      console.log(res);
+      if (value === "order_cancel") {
+        window.location.reload();
+      }
+      setDelivery_status(value);
+    }
 
     return (
       <Paper
@@ -131,42 +150,20 @@ function SD_PendingOrder() {
             <Button
               size="small"
               variant="outlined"
-              onClick={async () => {
-                setDelivery_status("order_accepted");
-                const res = await axios.put(`/seller_dashboard/pending_order`, {
-                  value: "order_accepted",
-                });
-                console.log(res);
-                Dispatch({
-                  type: "Changed",
-                  it: "PendingOrders",
-                  to: true,
-                });
+              onClick={() => {
+                Order_calcel_confirm("order_accepted");
               }}
             >
               <Check />
-              Conform
+              Confirm
             </Button>
             <br />
             <br />
-            {/* delete the order from db after thinking about payment return &
-      let inform user */}
             <Button
               size="small"
               variant="outlined"
-              onClick={async () => {
-                console.log(
-                  'cancel order from ures"s and seller"s order and Send Notificaaation To user in Order"s place'
-                );
-                const res = await axios.put(`/seller_dashboard/pending_order`, {
-                  value: "order_cancel",
-                });
-                console.log(res);
-                Dispatch({
-                  type: "Changed",
-                  it: "PendingOrders",
-                  to: true,
-                });
+              onClick={() => {
+                Order_calcel_confirm("order_cancel");
               }}
             >
               <Close />
@@ -180,24 +177,21 @@ function SD_PendingOrder() {
               <Select
                 value={delivery_status}
                 onChange={async (e) => {
-                  setDelivery_status(e.target.value);
-                  Dispatch({
-                    type: "Changed",
-                    it: "PendingOrders",
-                    to: true,
-                  });
                   // updating data on the server
                   const res = await axios.put(
                     `/seller_dashboard/pending_order`,
-                    { value: e.target.value }
+                    { value: e.target.value,_id: _id }
                   );
                   console.log(res);
-                  if (e.target.value === "delivered")
+                  if (e.target.value === "delivered") {
                     Dispatch({
                       type: "Changed",
                       it: "CompletedOrders",
                       to: true,
                     });
+                    window.location.reload();
+                  }
+                  setDelivery_status(e.target.value);
                 }}
               >
                 {delivery_status === "order_accepted" && (
@@ -219,35 +213,6 @@ function SD_PendingOrder() {
                 )}
               </Select>
             </FormControl>
-            <br />
-            <br />
-            <br />
-            {delivery_status !== "delivered" && (
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={async () => {
-                  console.log(
-                    'cancel order from ures"s and seller"s order and Send Notificaaation To user in Order"s place'
-                  );
-                  const res = await axios.put(
-                    `/seller_dashboard/pending_order`,
-                    {
-                      value: "order_cancel",
-                    }
-                  );
-                  console.log(res);
-                  Dispatch({
-                    type: "Changed",
-                    it: "PendingOrders",
-                    to: true,
-                  });
-                }}
-              >
-                <Close />
-                cancle order
-              </Button>
-            )}
           </div>
         )}
         {/*  */}
@@ -293,6 +258,7 @@ function SD_PendingOrder() {
           return (
             <Orders
               key={nanoid()}
+              _id={item._id}
               IMAGE={item.thumbnail}
               PRODUCT_NAME={item.name}
               SHORT_DESCRIPTION={item.short_description}
