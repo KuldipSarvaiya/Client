@@ -17,7 +17,7 @@ function PaymentSuccess() {
       const res = await axios.put("/cart/payment_success", {
         orders: search.substring(8).split("&").slice(0, -1),
       });
-      console.log("Payment sucessfull hurrray , i love dhruvika umahh");
+      console.log("Payment sucessfull hurrray ");
       navigate("/account/panel2", { replace: true });
       setMsg(res.data);
       // Dispatch({ type: "Changed", it: "Account" });
