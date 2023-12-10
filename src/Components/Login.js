@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import {
   Button,
@@ -13,6 +13,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import { ArrowOutward, LoginOutlined, Warning } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,6 +22,7 @@ import { DecodeData, EncodeData } from "./SecureData";
 import { Context } from "../Context";
 
 function Login() {
+  const [isLoading, setIsLoding] = useState(false);
   const { Dispatch } = useContext(Context);
   const [hasAcc, setHasAcc] = React.useState(true);
   const [rememberMe, setRememberMe] = React.useState(true);
@@ -145,6 +147,7 @@ function Login() {
         if (pass.length >= 8) {
           const role = seller ? "seller" : "user";
           const url = seller ? "/seller_dashboard/login" : "/user_login/login";
+          setIsLoding(true);
           const res = await axios.post(url, {
             role: role,
             email: email,
@@ -161,6 +164,7 @@ function Login() {
             };
             setValidDtl(true);
           }
+          setIsLoding(false);
         } else
           setAlert({
             open: true,
@@ -293,7 +297,10 @@ function Login() {
           if (address.split(",").length === 9 && address.length > 40) {
             const add = seller ? "shop_address" : "address";
             const role = seller ? "seller" : "user";
-            const url = !seller ? "/user_login/register" : "/seller_dashboard/register";
+            const url = !seller
+              ? "/user_login/register"
+              : "/seller_dashboard/register";
+            setIsLoding(true);
             const res = await axios.post(url, {
               role: role,
               name: name,
@@ -312,6 +319,7 @@ function Login() {
               DATA.current = parseInt(res.data.otp);
               setValidDtl(true);
             }
+            setIsLoding(false);
           } else {
             setAlert({
               open: true,
@@ -532,13 +540,17 @@ function Login() {
                 </>
               )}
 
-              <Button
-                type="submit"
-                variant="outlined"
-                sx={{ margin: "20px 0px" }}
-              >
-                sign in <LoginOutlined />
-              </Button>
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  sx={{ margin: "20px 0px" }}
+                >
+                  sign in <LoginOutlined />
+                </Button>
+              )}
             </form>
             {!forgotPass && (
               <span>
@@ -702,14 +714,17 @@ function Login() {
                   required
                 />
               )}
-              {/* <br /> <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1> */}
-              <Button
-                type="submit"
-                variant="outlined"
-                sx={{ margin: "20px 0px" }}
-              >
-                sign up <LoginOutlined />
-              </Button>
+              {isLoading ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  sx={{ margin: "20px 0px" }}
+                >
+                  sign up <LoginOutlined />
+                </Button>
+              )}
             </form>
             <span>
               <Checkbox
