@@ -577,6 +577,7 @@ function Login() {
                 <Link
                   onClick={() => {
                     setHasAcc(false);
+                    if (isLoading) setIsLoding(false);
                     setValidDtl(false);
                   }}
                 >
@@ -742,6 +743,7 @@ function Login() {
                 <Link
                   onClick={() => {
                     setHasAcc(true);
+                    if (isLoading) setIsLoding(false);
                     setValidDtl(false);
                   }}
                 >

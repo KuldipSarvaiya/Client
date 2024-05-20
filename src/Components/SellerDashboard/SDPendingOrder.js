@@ -145,7 +145,7 @@ function SD_PendingOrder() {
           </b>
         </Stack>
         {/* Delivery Status */}
-        {delivery_status === "order_pending" ? (
+        {delivery_status === "none" ? (
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Button
               size="small"

@@ -284,6 +284,7 @@ function Account() {
               variant="contained"
               size="small"
               color="info"
+              hidden={order_completed}
               disabled={rev || order_completed}
               sx={{ padding: "3px 10px", verticalAlign: "middle" }}
               onClick={async () => {
